@@ -10,5 +10,7 @@ const upload = multer({
 
 
 Router.post("/upload",upload.single("note"),notescontroller.uploadNotes)
+Router.get("/",notescontroller.getAllNotes)
+Router.post("/search",notescontroller.searchUser)
 
 module.exports = Router

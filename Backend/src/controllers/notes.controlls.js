@@ -52,4 +52,39 @@ async function uploadNotes (req,res){
         }
     }
 
-    module.exports = {uploadNotes}
+async function getAllNotes(req,res){
+    const notes = await notesModel.find()
+
+    
+    res.status(200).json({
+        message:"Notes fetched Successfully",
+        notes:notes
+    })
+}
+
+async function searchUser(req,res){
+
+    try {
+        const {query} = req.body;
+
+        const filter ={
+            $or :[
+                {title:{$regex : query, $options:'1'}},
+                {degree:{$regex : query, $options:'1'}},
+                { sem: isNaN(query) ? undefined : Number(query) }
+            ].filter(Boolean)
+            
+        }
+        const filterData = await search.find(filter)
+
+        if(filterData.length === 0){
+            return res.status(404).json({message:"data not found"})
+        }
+
+        return res.status(200).json(filterData)
+    } catch (error) {
+        res.status(500).json({error:error})
+    }
+}
+
+module.exports = {uploadNotes,getAllNotes,searchUser}

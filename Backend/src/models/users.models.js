@@ -27,6 +27,29 @@ const userSchema = new mongoose.Schema({
 
    
 })
+// const AcdemicSchema = new mongoose.Schema({
+    
+//    collegeName :{ 
+//     type: String,
+//     required : true,
+//     unique:true
+//      },
+
+//      year:{
+//         type:String,
+//         required:true,
+//         unique:true
+//      },
+     
+//      mobileNo:{
+//         type:String,
+//         required:true,
+//         unique:true
+//      },
+    
+
+   
+// })
  const userModel = mongoose.model("student",userSchema)
 
  module.exports = userModel;
