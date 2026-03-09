@@ -50,7 +50,7 @@ async function uploadNotes (req,res){
         console.log(err) 
             return res.status(401).json({message:"unauthorized"})
         }
-    }
+}
 
 async function getAllNotes(req,res){
     const notes = await notesModel.find()
@@ -65,17 +65,17 @@ async function getAllNotes(req,res){
 async function searchUser(req,res){
 
     try {
-        const {query} = req.body;
+        const {title,degree,sem} = req.body;
 
         const filter ={
-            $or :[
-                {title:{$regex : query, $options:'1'}},
-                {degree:{$regex : query, $options:'1'}},
-                { sem: isNaN(query) ? undefined : Number(query) }
+            $and :[
+                {title:{$regex : title, $options:'i'}},
+                {degree:{$regex : degree, $options:'i'}},
+                { sem: isNaN(sem) ? undefined : Number(sem) }
             ].filter(Boolean)
             
         }
-        const filterData = await search.find(filter)
+        const filterData = await notesModel.find(filter)
 
         if(filterData.length === 0){
             return res.status(404).json({message:"data not found"})

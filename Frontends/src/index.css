@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+
+*{
+  font-family: "Hanken Grotesk"
+}
+body{
+  background-color: rgb(12,12,12  );
+  color:white;
+ 
+}
+
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("./assets/Images/bg.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
